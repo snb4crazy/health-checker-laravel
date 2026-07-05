@@ -20,7 +20,12 @@ class HealthCheckCommandTest extends TestCase
             ->assertExitCode(1);
     }
 
+    public function test_health_check_command_can_filter_checks_by_only_option(): void
+    {
+        $this->artisan('health:check --only=fake-pass --json')
+            ->expectsOutputToContain('"fake-pass"')
+            ->doesntExpectOutputToContain('"fake-fail"')
+            ->assertExitCode(0);
+    }
 }
-
-
 
