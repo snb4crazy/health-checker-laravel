@@ -1,4 +1,4 @@
-# package-health-checker-laravel
+# health-checker-laravel
 
 Starter Laravel package for operational health checks with a clean report output.
 
