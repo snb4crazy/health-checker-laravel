@@ -14,6 +14,11 @@ class HealthCheckCommandTest extends TestCase
             ->assertExitCode(1);
     }
 
+    public function test_health_check_command_can_output_json(): void
+    {
+        $this->artisan('health:check --json')
+            ->assertExitCode(1);
+    }
 
 }
 
