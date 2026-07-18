@@ -1,5 +1,9 @@
 # Laravel Health Checker
 
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/snb4crazy/health-checker-laravel.svg?label=packagist)](https://packagist.org/packages/snb4crazy/health-checker-laravel)
+[![Total Downloads](https://img.shields.io/packagist/dt/snb4crazy/health-checker-laravel.svg)](https://packagist.org/packages/snb4crazy/health-checker-laravel)
+[![PHP Version](https://img.shields.io/packagist/php-v/snb4crazy/health-checker-laravel.svg)](https://packagist.org/packages/snb4crazy/health-checker-laravel)
+[![License](https://img.shields.io/packagist/l/snb4crazy/health-checker-laravel.svg)](LICENSE)
 
 `snb4crazy/health-checker-laravel` runs operational health checks for Laravel apps and returns a clear summary for humans and automation.
 
