@@ -1,74 +1,66 @@
-# health-checker-laravel
+# Laravel Health Checker
 
-Starter Laravel package for operational health checks with a clean report output.
 
-It checks:
+`snb4crazy/health-checker-laravel` runs operational health checks for Laravel apps and returns a clear summary for humans and automation.
 
-- queues
-- storage
-- Redis
-- cache
-- database (including optional remote replicas)
-- mail (optional)
-- disk space
-- SSL certificates (optional)
-- environment consistency
+## What it checks
 
-## Why this starter
-
-You can centralize the standalone script logic you already use, then tune each check for your infrastructure.
-
-This package is intentionally opinionated but extensible:
-
-- command-based execution: `php artisan health:check`
-- JSON output for cron + log parsing: `php artisan health:check --json`
-- selective checks: `--only=database,redis` / `--skip=mail,ssl`
-- optional alerts by email when anything fails
+| Check key | What it validates |
+| --- | --- |
+| `database` | configured DB connections + optional remote DB replicas |
+| `redis` | configured Redis connections + optional remote Redis instances |
+| `cache` | write/read/delete probe against selected cache store |
+| `queue` | queue backend reachability and basic driver sanity |
+| `storage` | write/read/delete probe on configured disks |
+| `mail` | mail transport (and optional test email send) |
+| `disk-space` | free disk thresholds by configured path |
+| `ssl` | SSL certificate validity / expiry windows |
+| `environment` | required env vars and production safety rules |
 
 ## Requirements
 
 | Dependency | Version |
-|------------|---------|
-| PHP        | 8.2+    |
-| Laravel    | 10-13   |
+| --- | --- |
+| PHP | 8.2+ |
+| Laravel | 10, 11, 12, 13 |
 
 ## Installation
 
 ```bash
-composer require snb4crazy/package-health-checker-laravel
+composer require snb4crazy/health-checker-laravel
 php artisan vendor:publish --tag=health-checker-config
 ```
 
-## Usage
+The package uses Laravel auto-discovery.
 
-Run all checks:
+## Quick start
 
 ```bash
+# Human-readable table output
 php artisan health:check
-```
 
-Run as machine-readable JSON:
-
-```bash
+# JSON output for logs/automation
 php artisan health:check --json
 ```
 
-Skip expensive checks in hourly cron:
+Exit code is `0` when there are no failed checks, otherwise `1`.
+
+## Command options
 
 ```bash
-php artisan health:check --skip=ssl,mail
-```
-
-Run only target checks:
-
-```bash
+# Run only selected checks
 php artisan health:check --only=database,redis,queue
+
+# Skip selected checks
+php artisan health:check --skip=ssl,mail
+
+# Convenience flags
+php artisan health:check --skip-ssl --skip-mail --json
 ```
 
-## Scheduler example
+## Scheduler examples
 
 ```php
-// routes/console.php or app/Console/Kernel.php
 use Illuminate\Support\Facades\Schedule;
 
 Schedule::command('health:check --skip=ssl,mail --json')
@@ -80,20 +72,39 @@ Schedule::command('health:check --only=ssl,mail --json')
     ->withoutOverlapping();
 ```
 
-## Config highlights
+## Configuration guide
 
-Published config file: `config/health-checker.php`
+Publish and edit `config/health-checker.php`.
 
-Main sections:
+### Core sections
 
-- `checks`: list of check classes (you can swap with your own)
-- `database.remotes`: remote DB replicas with credentials
-- `redis.remotes`: remote Redis instances
-- `ssl.targets`: frontend/API hosts for certificate checks
-- `mail.enabled`: turn mail check on/off
-- `alerts.email.*`: email notifications on fail/warn
+- `enabled`: global on/off switch.
+- `checks`: ordered list of check classes to execute.
+- `log_channel`: optional Laravel log channel for failures/warnings.
+- `alerts.email.*`: email notifications for failed checks (and optionally warnings).
 
-### Remote DB example
+### Infrastructure targets
+
+- `database.connections` and `database.remotes`
+- `redis.connections` and `redis.remotes`
+- `cache.store`
+- `queue.connection` / `queue.queue`
+- `storage.disks` / `storage.probe_directory`
+- `disk_space.paths`
+- `ssl.enabled` / `ssl.targets` / `ssl.warn_days_before_expiry`
+
+### Mail check behavior
+
+- `mail.enabled=false` skips the mail check.
+- `mail.send_test_email=true` sends a test email and requires `mail.to`.
+
+### Environment safeguards
+
+- `environment.allowed_app_envs`
+- `environment.required`
+- `environment.forbidden_in_production`
+
+## Remote target examples
 
 ```php
 'database' => [
@@ -111,11 +122,21 @@ Main sections:
         ],
     ],
 ],
-```
 
-### SSL target example
+'redis' => [
+    'connections' => ['default'],
+    'remotes' => [
+        [
+            'name' => 'redis-cache',
+            'host' => '10.10.2.5',
+            'port' => 6379,
+            'password' => null,
+            'database' => 0,
+            'timeout' => 3,
+        ],
+    ],
+],
 
-```php
 'ssl' => [
     'enabled' => true,
     'warn_days_before_expiry' => 14,
@@ -125,9 +146,19 @@ Main sections:
 ],
 ```
 
-## Extending checks
+## Extending with custom checks
 
-Create your own check class implementing `PackageHealthChecker\Laravel\Contracts\HealthCheck` and add it to `health-checker.checks`.
+1. Create a check class that implements `PackageHealthChecker\Laravel\Contracts\HealthCheck`.
+2. Return a `PackageHealthChecker\Laravel\Data\HealthCheckResult` from `run()`.
+3. Register the class in `health-checker.checks`.
+
+## Programmatic usage
+
+```php
+use PackageHealthChecker\Laravel\Facades\HealthChecker;
+
+$results = HealthChecker::run(only: ['database'], skip: []);
+```
 
 ## Testing
 
@@ -138,4 +169,3 @@ composer test
 ## License
 
 MIT
-
