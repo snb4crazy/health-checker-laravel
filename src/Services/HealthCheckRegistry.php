@@ -29,4 +29,3 @@ class HealthCheckRegistry
         return $instances;
     }
 }
-

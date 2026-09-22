@@ -5,8 +5,11 @@ namespace PackageHealthChecker\Laravel\Data;
 class HealthCheckResult
 {
     public const PASS = 'pass';
+
     public const WARN = 'warn';
+
     public const FAIL = 'fail';
+
     public const SKIPPED = 'skipped';
 
     /**
@@ -45,4 +48,3 @@ class HealthCheckResult
         ];
     }
 }
-

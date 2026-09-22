@@ -26,4 +26,3 @@ abstract class TestCase extends OrchestraTestCase
         $app['config']->set('health-checker.alerts.email.enabled', false);
     }
 }
-
