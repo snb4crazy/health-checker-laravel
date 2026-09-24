@@ -53,7 +53,7 @@ rewriting files).
 Pushed the branch and opened PR #5 to trigger real `pull_request` runs on
 GitHub (not just local trust). This surfaced two real, unrelated environment
 bugs — see "Issues found and fixed" below. After fixing them, confirmed the
-full pipeline (12 valid matrix jobs + lint) went green from a genuinely broken
+full pipeline (11 valid matrix jobs + lint) went green from a genuinely broken
 starting state, not by accident.
 
 ### Step 6 — Coverage report as an artifact
