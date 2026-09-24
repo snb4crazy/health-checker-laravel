@@ -55,4 +55,3 @@ class EnvironmentCheck extends BaseCheck
         });
     }
 }
-

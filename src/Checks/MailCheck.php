@@ -52,4 +52,3 @@ class MailCheck extends BaseCheck
         });
     }
 }
-

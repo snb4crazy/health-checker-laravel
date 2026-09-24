@@ -83,4 +83,3 @@ class RedisCheck extends BaseCheck
         });
     }
 }
-
