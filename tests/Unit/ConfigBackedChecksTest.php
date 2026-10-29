@@ -20,6 +20,18 @@ class ConfigBackedChecksTest extends TestCase
 
         $this->assertSame(HealthCheckResult::PASS, (new EnvironmentCheck())->run()->status);
     }
-
+    
+    public function test_environment_check_fails_when_cached_debug_enabled_in_production(): void
+    {
+        config([
+            'app.name' => 'App',
+            'app.env' => 'production',
+            'app.url' => 'https://example.test',
+            'app.debug' => true,
+        ]);
+        
+        $this->assertSame(HealthCheckResult::FAIL, (new EnvironmentCheck())->run()->status);
+    }
+    
     
 }
