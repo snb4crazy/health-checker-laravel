@@ -24,7 +24,7 @@
 | `mail` | mail transport (and optional test email send) |
 | `disk-space` | free disk thresholds by configured path |
 | `ssl` | SSL certificate validity / expiry windows |
-| `environment` | required env vars and production safety rules |
+| `environment` | required app config values and production safety rules |
 
 ## Requirements
 
@@ -110,8 +110,13 @@ Publish and edit `config/health-checker.php`.
 ### Environment safeguards
 
 - `environment.allowed_app_envs`
-- `environment.required`
-- `environment.forbidden_in_production`
+- `environment.required` - config keys (e.g. `app.name`), not env var names, so it works after `config:cache`
+- `environment.forbidden_in_production` - config key => forbidden values (e.g. `app.debug`)
+
+### Defaults
+
+- `redis.connections` defaults to `default` (override with `HEALTH_CHECKER_REDIS_CONNECTION`).
+- `cache.store`, `queue.connection` and `mail.mailer` fall back to the app's `cache.default`, `queue.default` and `mail.default` when the `HEALTH_CHECKER_*` override is unset.
 
 ## Remote target examples
 
