@@ -33,5 +33,12 @@ class ConfigBackedChecksTest extends TestCase
         $this->assertSame(HealthCheckResult::FAIL, (new EnvironmentCheck())->run()->status);
     }
     
+    public function test_environment_check_fails_when_required_config_missing(): void
+    {
+        config(['app.env' => 'local', 'app.url' => '']);
+        
+        $this->assertSame(HealthCheckResult::FAIL, (new EnvironmentCheck())->run()->status);
+    }
+    
     
 }
