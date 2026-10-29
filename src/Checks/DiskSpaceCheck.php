@@ -34,6 +34,7 @@ class DiskSpaceCheck extends BaseCheck
                 if ($path === '' || ! is_dir($path)) {
                     $status = HealthCheckResult::FAIL;
                     $messages[] = "path={$path}:invalid";
+
                     continue;
                 }
 
@@ -43,12 +44,14 @@ class DiskSpaceCheck extends BaseCheck
                 if (! is_float($total) && ! is_int($total)) {
                     $status = HealthCheckResult::FAIL;
                     $messages[] = "path={$path}:unreadable";
+
                     continue;
                 }
 
                 if (! is_float($free) && ! is_int($free)) {
                     $status = HealthCheckResult::FAIL;
                     $messages[] = "path={$path}:unreadable";
+
                     continue;
                 }
 
@@ -59,12 +62,14 @@ class DiskSpaceCheck extends BaseCheck
                 if ($freePercent <= $fail) {
                     $status = HealthCheckResult::FAIL;
                     $messages[] = sprintf('path=%s:%.2f%% free (FAIL)', $path, $freePercent);
+
                     continue;
                 }
 
                 if ($freePercent <= $warn && $status !== HealthCheckResult::FAIL) {
                     $status = HealthCheckResult::WARN;
                     $messages[] = sprintf('path=%s:%.2f%% free (WARN)', $path, $freePercent);
+
                     continue;
                 }
 
@@ -75,4 +80,3 @@ class DiskSpaceCheck extends BaseCheck
         });
     }
 }
-

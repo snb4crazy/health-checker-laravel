@@ -55,4 +55,3 @@ class QueueCheck extends BaseCheck
         });
     }
 }
-

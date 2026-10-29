@@ -41,6 +41,7 @@ class SslCheck extends BaseCheck
                 if ($host === '') {
                     $status = HealthCheckResult::FAIL;
                     $messages[] = "target={$name}:missing-host";
+
                     continue;
                 }
 
@@ -50,12 +51,14 @@ class SslCheck extends BaseCheck
                     if ($remainingDays <= 0) {
                         $status = HealthCheckResult::FAIL;
                         $messages[] = "target={$name}:expired";
+
                         continue;
                     }
 
                     if ($remainingDays <= $warnDays && $status !== HealthCheckResult::FAIL) {
                         $status = HealthCheckResult::WARN;
                         $messages[] = "target={$name}:expires-in={$remainingDays}d";
+
                         continue;
                     }
 
@@ -111,4 +114,3 @@ class SslCheck extends BaseCheck
         return (int) floor(($validTo - time()) / 86400);
     }
 }
-

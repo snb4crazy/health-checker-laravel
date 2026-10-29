@@ -22,4 +22,3 @@ class FakeFailCheck extends BaseCheck
         return $this->measure(fn (): HealthCheckResult => $this->result(HealthCheckResult::FAIL, 'Dependency not responding.'));
     }
 }
-

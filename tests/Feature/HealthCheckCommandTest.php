@@ -28,4 +28,3 @@ class HealthCheckCommandTest extends TestCase
             ->assertExitCode(0);
     }
 }
-

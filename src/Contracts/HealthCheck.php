@@ -12,4 +12,3 @@ interface HealthCheck
 
     public function run(): HealthCheckResult;
 }
-

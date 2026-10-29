@@ -22,4 +22,3 @@ class FakePassCheck extends BaseCheck
         return $this->measure(fn (): HealthCheckResult => $this->result(HealthCheckResult::PASS, 'Everything is healthy.'));
     }
 }
-

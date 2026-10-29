@@ -56,4 +56,3 @@ class StorageCheck extends BaseCheck
         });
     }
 }
-

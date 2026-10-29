@@ -20,4 +20,3 @@ class HealthReportRunnerTest extends TestCase
         $this->assertSame(0, $summary['skipped']);
     }
 }
-

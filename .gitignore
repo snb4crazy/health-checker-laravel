@@ -3,4 +3,6 @@
 /.phpunit.result.cache
 /.idea
 composer.lock
+/coverage-html
+/coverage.xml
 
