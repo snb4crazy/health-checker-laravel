@@ -20,7 +20,7 @@ class CacheCheck extends BaseCheck
     public function run(): HealthCheckResult
     {
         return $this->measure(function (): HealthCheckResult {
-            $store = (string) config('health-checker.cache.store', config('cache.default'));
+            $store = (string) (config('health-checker.cache.store') ?: config('cache.default'));
             $key = 'health-checker:probe:'.uniqid('', true);
 
             try {
