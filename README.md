@@ -1,12 +1,14 @@
 # Laravel Health Checker
 
-[![License](https://img.shields.io/github/license/snb4crazy/health-checker-laravel)](LICENSE)
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/snb4crazy/health-checker-laravel.svg?label=packagist)](https://packagist.org/packages/snb4crazy/health-checker-laravel)
+[![CI](https://img.shields.io/github/actions/workflow/status/snb4crazy/health-checker-laravel/ci.yml?branch=main&label=CI)](https://github.com/snb4crazy/health-checker-laravel/actions/workflows/ci.yml)
+[![Release workflow](https://img.shields.io/github/actions/workflow/status/snb4crazy/health-checker-laravel/release.yml?label=release%20workflow)](https://github.com/snb4crazy/health-checker-laravel/actions/workflows/release.yml)
+[![Latest Release](https://img.shields.io/github/v/release/snb4crazy/health-checker-laravel?sort=semver)](https://github.com/snb4crazy/health-checker-laravel/releases)
+[![Packagist Version](https://img.shields.io/packagist/v/snb4crazy/health-checker-laravel.svg?label=packagist)](https://packagist.org/packages/snb4crazy/health-checker-laravel)
 [![Total Downloads](https://img.shields.io/packagist/dt/snb4crazy/health-checker-laravel.svg)](https://packagist.org/packages/snb4crazy/health-checker-laravel)
-[![Latest Release](https://img.shields.io/github/v/release/snb4crazy/webhook-manager-laravel?sort=semver)](https://github.com/snb4crazy/webhook-manager-laravel/releases)
+[![License](https://img.shields.io/github/license/snb4crazy/health-checker-laravel)](LICENSE)
 [![PHP](https://img.shields.io/badge/PHP-8.2%2B-777BB4?logo=php&logoColor=white)](https://www.php.net/)
 [![Laravel](https://img.shields.io/badge/Laravel-10%20%7C%2011%20%7C%2012%20%7C%2013-blue?logo=laravel&logoColor=white)](https://laravel.com/)
-[![Last Commit](https://img.shields.io/github/last-commit/snb4crazy/webhook-manager-laravel)](https://github.com/snb4crazy/webhook-manager-laravel/commits/main)
+[![Last Commit](https://img.shields.io/github/last-commit/snb4crazy/health-checker-laravel)](https://github.com/snb4crazy/health-checker-laravel/commits/main)
 
 `snb4crazy/health-checker-laravel` runs operational health checks for Laravel apps and returns a clear summary for humans and automation.
 
