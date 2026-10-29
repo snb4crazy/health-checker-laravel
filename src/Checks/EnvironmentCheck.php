@@ -32,7 +32,7 @@ class EnvironmentCheck extends BaseCheck
             }
 
             foreach ((array) config('health-checker.environment.required', []) as $required) {
-                $value = env((string) $required);
+                $value = config((string) $required);
                 if ($value === null || $value === '') {
                     $status = HealthCheckResult::FAIL;
                     $messages[] = "required {$required}=missing";
@@ -41,7 +41,8 @@ class EnvironmentCheck extends BaseCheck
 
             if ($appEnv === 'production') {
                 foreach ((array) config('health-checker.environment.forbidden_in_production', []) as $name => $forbiddenValues) {
-                    $current = strtolower((string) env((string) $name, ''));
+                    $raw = config((string) $name);
+                    $current = is_bool($raw) ? ($raw ? 'true' : 'false') : strtolower((string) $raw);
                     $forbidden = array_map('strtolower', (array) $forbiddenValues);
 
                     if (in_array($current, $forbidden, true)) {
