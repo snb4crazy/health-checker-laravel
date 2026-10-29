@@ -24,7 +24,7 @@ class MailCheck extends BaseCheck
                 return $this->result(HealthCheckResult::SKIPPED, 'Mail check disabled.');
             }
 
-            $mailer = (string) config('health-checker.mail.mailer', config('mail.default', 'smtp'));
+            $mailer = (string) (config('health-checker.mail.mailer') ?: config('mail.default', 'log'));
 
             try {
                 app('mail.manager')->mailer($mailer)->getSymfonyTransport();
