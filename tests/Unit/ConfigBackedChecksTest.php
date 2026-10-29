@@ -18,9 +18,9 @@ class ConfigBackedChecksTest extends TestCase
             'app.debug' => false,
         ]);
 
-        $this->assertSame(HealthCheckResult::PASS, (new EnvironmentCheck())->run()->status);
+        $this->assertSame(HealthCheckResult::PASS, (new EnvironmentCheck)->run()->status);
     }
-    
+
     public function test_environment_check_fails_when_cached_debug_enabled_in_production(): void
     {
         config([
@@ -29,16 +29,27 @@ class ConfigBackedChecksTest extends TestCase
             'app.url' => 'https://example.test',
             'app.debug' => true,
         ]);
-        
-        $this->assertSame(HealthCheckResult::FAIL, (new EnvironmentCheck())->run()->status);
+
+        $this->assertSame(HealthCheckResult::FAIL, (new EnvironmentCheck)->run()->status);
     }
-    
+
     public function test_environment_check_fails_when_required_config_missing(): void
     {
         config(['app.env' => 'local', 'app.url' => '']);
-        
-        $this->assertSame(HealthCheckResult::FAIL, (new EnvironmentCheck())->run()->status);
+
+        $this->assertSame(HealthCheckResult::FAIL, (new EnvironmentCheck)->run()->status);
     }
-    
-    
+
+    public function test_mail_check_falls_back_to_app_default_mailer(): void
+    {
+        config([
+            'health-checker.mail.enabled' => true,
+            'health-checker.mail.mailer' => null,
+            'mail.default' => 'log',
+        ]);
+
+        $result = (new MailCheck)->run();
+
+        $this->assertStringContainsString('log', $result->message);
+    }
 }
