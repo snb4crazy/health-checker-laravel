@@ -22,7 +22,7 @@ class QueueCheck extends BaseCheck
     public function run(): HealthCheckResult
     {
         return $this->measure(function (): HealthCheckResult {
-            $connection = (string) config('health-checker.queue.connection', config('queue.default', 'sync'));
+            $connection = (string) (config('health-checker.queue.connection') ?: config('queue.default', 'sync'));
 
             if ($connection === 'sync') {
                 return $this->result(HealthCheckResult::WARN, 'Queue connection is sync; async workers are not exercised.');

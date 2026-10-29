@@ -53,7 +53,7 @@ return [
     ],
 
     'redis' => [
-        'connections' => [env('HEALTH_CHECKER_REDIS_CONNECTION', env('REDIS_CLIENT', 'default'))],
+        'connections' => [env('HEALTH_CHECKER_REDIS_CONNECTION', 'default')],
         'remotes' => [
             // [
             //     'name' => 'redis-cache',
@@ -67,11 +67,11 @@ return [
     ],
 
     'cache' => [
-        'store' => env('HEALTH_CHECKER_CACHE_STORE', env('CACHE_STORE', 'file')),
+        'store' => env('HEALTH_CHECKER_CACHE_STORE'),
     ],
 
     'queue' => [
-        'connection' => env('HEALTH_CHECKER_QUEUE_CONNECTION', env('QUEUE_CONNECTION', 'sync')),
+        'connection' => env('HEALTH_CHECKER_QUEUE_CONNECTION'),
         'queue' => env('HEALTH_CHECKER_QUEUE_NAME', 'default'),
     ],
 
@@ -82,7 +82,7 @@ return [
 
     'mail' => [
         'enabled' => env('HEALTH_CHECKER_MAIL_ENABLED', false),
-        'mailer' => env('HEALTH_CHECKER_MAILER', env('MAIL_MAILER', 'smtp')),
+        'mailer' => env('HEALTH_CHECKER_MAILER'),
         'send_test_email' => env('HEALTH_CHECKER_MAIL_SEND_TEST', false),
         'to' => env('HEALTH_CHECKER_MAIL_TO'),
     ],
@@ -112,9 +112,9 @@ return [
 
     'environment' => [
         'allowed_app_envs' => ['local', 'staging', 'production'],
-        'required' => ['APP_NAME', 'APP_ENV', 'APP_URL'],
+        'required' => ['app.name', 'app.env', 'app.url'],
         'forbidden_in_production' => [
-            'APP_DEBUG' => ['1', 'true', 'on'],
+            'app.debug' => ['1', 'true', 'on'],
         ],
     ],
 ];
